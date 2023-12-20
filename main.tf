@@ -42,7 +42,7 @@ data "vsphere_virtual_machine" "template" {
 
 resource "vsphere_virtual_machine" "vm" {
   count                   = var.vm_count
-  name                    = "${var.vm_names}${count.index}"
+  name                    = "${var.vm_names}${count.index + 1}"
   # folder                  = var.vsphere_folder
   num_cpus                = var.vm_cpus
   memory                  = var.vm_memory
@@ -106,16 +106,16 @@ resource "vsphere_virtual_machine" "vm" {
     template_uuid = data.vsphere_virtual_machine.template.id
     customize {
       linux_options {
-        host_name = "${var.vm_hostname}${count.index}"
+        host_name = "${var.vm_hostname}${count.index + 1}"
         domain    = var.vm_domain
       }
       network_interface {
-        ipv4_address = "${var.vm_ipv4_address}${count.index}"
+        ipv4_address = "${var.vm_ipv4_address}${count.index + 1}"
         ipv4_netmask = var.vm_ipv4_netmask
       }
 
       network_interface {
-        ipv4_address = "${var.vm_ipv4_address2}${count.index}"
+        ipv4_address = "${var.vm_ipv4_address2}${count.index + 1}"
         ipv4_netmask = var.vm_ipv4_netmask2
       }
 
